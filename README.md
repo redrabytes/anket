@@ -40,14 +40,20 @@ Before using Anket, ensure the following dependencies are installed:
 ---
 
 ## **Installation**
-1. Clone the repository:
+1. Clone the project from GitHub:
    ```bash
-   git clone https://github.com/your-username/Anket.git
-   cd Anket
+   > git clone https://github.com/redrabytes/anket.git
+   > cd anket
    ```
-2. Install Python dependencies:
+
+2. Install the required dependencies:
    ```bash
-   pip install -r requirements.txt
+   > python setup.py install
+   ```
+
+3. You can now run Anket using the command:
+   ```bash
+   > anket
    ```
 3. Ensure `fping` and `rustscan` are installed and available in your `PATH`.
 
@@ -55,13 +61,15 @@ Before using Anket, ensure the following dependencies are installed:
    - Create a bot via [@BotFather](https://t.me/BotFather) and get your token.
    - Add the token to the project configuration file.
 
+5. Building the binary
+
 ---
 
 ## **Usage**
 ### **Main Commands**
 - **Start a scan:**
    ```bash
-  anket --help
+  > anket --help
 
          ,;;;,
         ;;;;;;;
