@@ -1,88 +1,117 @@
-# Anqet
+# **Anket**
 
-## Botnet C2/CNC Detection (Beta)
+## **Introduction**
+Anket is an open-source tool designed to **identify botnet Command and Control (C2) servers**. This project is purely for educational purposes, aimed at helping understand and analyze the malicious infrastructures of botnets. **Anket is not intended for malicious or illegal use.**
 
-This project, currently in beta version, aims to detect and expose the command and control servers of botnets in order to take further action, such as blocking or shutting them down.
-
----
-
-## Introduction
-
-Botnets represent a significant threat to cybersecurity, as they orchestrate a variety of malicious activities such as DDoS attacks, spam distribution, and data theft. Identifying and neutralizing their command and control (C&C) servers is crucial to mitigating their impact. The project uses (will use) various techniques to detect and expose these servers for proactive security measures.
+I am not a professional developer, but I am passionate about cybersecurity and curious to explore botnet mechanisms. Anket represents my efforts to learn, share knowledge, and contribute to online safety.
 
 ---
 
-## Features
-
-- **Integration with URLhaus:** Integrates with URLhaus to fetch a list of potentially malicious URLs and scan them for C&C servers.
-- **Port scanning:** Checking all ports on the results you got according tags set in `.env` file.
-- **Logging:** Logs scan results for analysis and action.
-- **Customizable:** Easily customizable through environment variables to specify tags and ignore certain types of URLs.
-
----
-
-## Setup
-
-1. **Clone the repository:**
-
-    ```bash
-    git clone https://github.com/redrabytes/anqet
-    cd anqet
-    ```
-
-2. **Install dependencies:**
-
-    ```bash
-    npm install
-    ```
-
-    And you need to install  [RustScan](https://github.com/RustScan/RustScan/wiki/Installation-Guide)
-
-3. **Set up environment variables:**
-   
-    Create a `.env` file in the root directory and define the following variables:
-   
-    ```
-    URLHAUS_TAGS=mirai,elf
-    URLHAUS_IGNORE_TAGS=Mozi
-    ```
-
-4. **Run the script:**
-
-    ```bash
-    node index.js
-    ```
+## **Main Features**
+- **ASN and IP Analysis**: Queries IP ranges associated with specific ASNs using the WHOIS protocol.
+- **Suspicious Network Activity Detection**: Scans IP ranges to identify potentially malicious servers.
+- **Banner Analysis**: Compares open service banners with known patterns to detect:
+  - Signatures of specific malware.
+  - Potentially legitimate services.
+- **Telegram Notifications**: Sends real-time alerts when malicious servers are detected.
+- **Advanced Logging**: Provides detailed, color-coded logs to monitor scanning progress.
 
 ---
 
-## Usage
+## **Prerequisites**
+Before using Anket, ensure the following dependencies are installed:
 
-Ensure that the required environment variables are properly configured before running the script.
+### **Required Software**
+- **Python 3.8+**
+- **fping**: For connectivity testing on IP ranges.
+- **rustscan**: For fast and efficient port scanning.
+
+### **Python Modules**
+- `asyncio`
+- `re`
+- `socket`
+- `subprocess`
+- `shutil`
+- `logging`
+- **Additional dependencies** (installed via `pip install -r requirements.txt`):
+  - `colorama`
+  - `pyTelegramBotAPI`
 
 ---
 
-## Beta Testing
+## **Installation**
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/Anket.git
+   cd Anket
+   ```
+2. Install Python dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+3. Ensure `fping` and `rustscan` are installed and available in your `PATH`.
 
-This version is in beta testing. Your feedback is valuable for improving the project's performance and reliability. If you encounter any issues or have suggestions for improvements, please open an issue or submit a pull request.
+4. Set up your Telegram bot by following these steps:
+   - Create a bot via [@BotFather](https://t.me/BotFather) and get your token.
+   - Add the token to the project configuration file.
 
 ---
 
-## Next Features
-- 🚧 Automatic detection of potential C2 ports
-- 🚧 Fetching data from other sources
-- 🚧 Automatic report generation (support: threatfox, ...)
-- 🚧 Malware type detection (mirai, qakbot, cobaltstrike, etc...)
-- 🚧 Exploit to buffer overflowing a (vulnerable) mirai botnet
-- 🚧 [Offensive mode (TCP Scanning)](#offensive-mode)
+## **Usage**
+### **Main Commands**
+- **Start a scan:**
+   ```bash
+  anket --help
+
+         ,;;;,
+        ;;;;;;;
+     .-'`\, '/_    _______       ______      _____ 
+   .'   \ ("\`(_)   ___    |_________  /________  /_
+  / `-,.'\ \_/     __  /| |_  __ \_  //_/  _ \  __/
+  \  \/\  `--`    _  ___ |  / / /  ,<  /  __/ /_ 
+   \  \ \         /_/  |_/_/ /_//_/|_| \___/\__/
+    / /| |
+   /_/ |_|
+  ( _\ ( _\  #:##        #:##        #:##         #:##
+                   #:##        #:##        #:##
+  
+  usage: anket TARGET [-h] [-s] [-asn] [-co] [-sv OUTPUT_FILE] [-tele]
+  
+  Anket: a tool to find Indicators of Compromise (IOC) and track malware activity.
+  
+  positional arguments:
+    TARGET           IP address, CIDR, ASN, or filename containing targets.
+  
+  optional arguments:
+    -h, --help       Show this help message and exit.
+    -s               Start a port-scanner & sensor to detect C&C server.
+    -asn             Print IP list from the AS given.
+    -co              Check online IP (ICMP).
+    -tele            Send report through Telegram.
+    -sv OUTPUT_FILE  Save results in file.
+  
+  examples:
+    anket.txt <options>
+    anket 192.168.0.1 <options>
+    anket AS197637 <options>
+   ```
+
+- **Telegram Notification:**
+   Configure the Telegram bot to receive alerts for detected open-dir servers.
+
 ---
 
-## ⚠️ Warnings ⚠️
-### Offensive mode: 
-- Scan whole ASNs to detect potential C2s, this options require a server which allow you to do TCP scanning because you could be confronted to abuse reports. (**DO NOT USE ON HOME CONNECTION !!**)
+## **Disclaimer**
+Anket is designed **for educational and defensive purposes only**. I am not responsible for any misuse or illegal activities conducted using this tool. Always ensure compliance with the laws in your country regarding network analysis and cybersecurity.
 
+---
 
-## Credits
-[redra.](https://twitter.com/redrabytes/) | [abuse.ch](https://twitter.com/abuse_ch)
+## **Contributions**
+If you’d like to contribute to improving this project, suggestions, bug reports, and pull requests are welcome! Since I’m not a professional developer, any help to make the code more robust and efficient is greatly appreciated.
 
-## Thanks to
-[Wafer4014](https://twitter.com/Wafer4014)
+---
+
+## **Contact**
+If you have questions or suggestions, feel free to reach out to me via GitHub or Twitter.
+
+---
