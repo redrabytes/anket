@@ -48,7 +48,7 @@ Before using Anket, ensure the following dependencies are installed:
 
 2. Install the required dependencies:
    ```bash
-   > python setup.py install
+   > pip install .
    ```
 
 3. You can now run Anket using the command:
